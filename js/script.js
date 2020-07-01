@@ -10,7 +10,7 @@ var numeriPc = [];
 
 // Il computer deve generare 16 numeri casuali tra 1 e 100.
 var numElementiArrayPc = 16;
-var numElementiMax = 20;
+var numElementiMax = 100;
 
 numeriPc = inserireElemCasuliInArray(numeriPc, numElementiArrayPc);
 console.log("array Pc", numeriPc);

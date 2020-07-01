@@ -13,7 +13,7 @@ var numElementiArrayPc = 16;
 var numElementiMax = 100;
 
 numeriPc = inserireElemCasuliInArray(numeriPc, numElementiArrayPc);
-console.log("array Pc",numeriPc);
+console.log("array Pc", numeriPc);
 
 // I numeri non possono essere duplicati
 numeriPc = verificaEmodificaElementiArray(numeriPc);
@@ -21,60 +21,59 @@ console.log("array Pc verificato e corretto", numeriPc);
 
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
 var listaNumeriUtente = [];
+var punti = 0;
+
 var i = 0;
-contatore = 0;
-while ( i < (numElementiMax - numElementiArrayPc)) {
+while ( i < (numElementiMax - numElementiArrayPc) ) {
 
+  // chiedo i numeri all'utente
   numUtente = parseInt(prompt("Inserisci un Numero tra 1 e 100"));
-  var numUtente1 = datoUtenteValido(numUtente, 1, 100);
-  console.log(numUtente + " " + numUtente1);
 
-  if (numUtente1) {
+  // verifico il dato dell'utente
+  var numUtente1 = numeroValido(numUtente, 1, 100);
+  console.log("Dato utente, verifica:", numUtente, numUtente1);
 
-    listaNumeriUtente = inserireElemInArray(listaNumeriUtente, numUtente)
-    console.log("array utente", listaNumeriUtente);
+  // inserisco i dati dell'utente in un array
+  listaNumeriUtente = inserireElemInArray(listaNumeriUtente, numUtente)
+  console.log("array utente", listaNumeriUtente);
 
-    // L’utente non può inserire più volte lo stesso numero.
-    listaNumeriUtente1 = verificaElementiArray(listaNumeriUtente);
-    console.log("array utente verificato", listaNumeriUtente1);
+  // L’utente non può inserire più volte lo stesso numero.
+  listaNumeriUtente1 = verificaElementiArray(listaNumeriUtente);
+  console.log("array utente verificato", listaNumeriUtente1);
 
-    if (listaNumeriUtente1) {
+  // confronto l'array del pc con l'array dell'utente
+  var confronto = confrontoElementiDiDueArray(numeriPc, listaNumeriUtente);
+  console.log("confronto", confronto);
 
-      var confronto = confrontoElementi(numeriPc, listaNumeriUtente);
-      console.log("confronto", confronto);
+  if (numUtente1 && !listaNumeriUtente1 && !confronto) {
 
-      // Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
-      if (!confronto) {
+    ++punti;
+    console.log("punti totalizzati:", punti);
 
-        console.log("i",i);
-        ++contatore;
-        // La partita termina quando il giocatore raggiunge il numero massimo possibile di numeri consentiti.
-        if ( i == (numElementiMax - (numElementiArrayPc + 1))) {
+    // La partita termina quando il giocatore raggiunge il numero massimo possibile di numeri consentiti.
+    if ( i == ((numElementiMax - numElementiArrayPc) - 1)) {
 
-          // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-          alert("Complimenti hai Vinto!!!!!! Hai Totalizzato " + contatore + " punti!!!!");
+      // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
+      alert("Complimenti hai Vinto!!!!!! Hai Totalizzato", punti, "punti!!!!");
 
-        }
-
-      } else {
-
-        // La partita termina quando il giocatore inserisce un numero “vietato”
-        alert("Mi dispace hai perso");
-        i = (numElementiMax - numElementiArrayPc);
-        
       }
 
-    } else {
+  } else if (numUtente1 && !listaNumeriUtente1) {
 
-      listaNumeriUtente.pop();
-      alert("Attenzione il dato non è stato già inserito");
-      --i;
+    // La partita termina quando il giocatore inserisce un numero “vietato” e deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
+    alert("Mi dispace hai perso. Hai Totalizzato", punti, "punti!!!!");
+    i = (numElementiMax - numElementiArrayPc);
 
-    }
+  } else if (numUtente1){
+
+    listaNumeriUtente.pop();
+    alert("Attenzione il dato è stato già inserito");
+    --i;
 
   } else {
 
-    alert("Attenzione il dato non è corretto o è stato già inserito");
+    listaNumeriUtente.pop();
+    alert("Attenzione il dato non è corretto");
     --i;
 
   }
@@ -122,8 +121,8 @@ while ( i < (numElementiMax - numElementiArrayPc)) {
 
   }
 
-  // FUNZIONE CHE DETERMINA SE IL DATO INSERITO DALL'UTENTE E' UN NUMERO ED E' COMPRESO FRA 2 NUMERI
-  function datoUtenteValido(num, numMin, numMax) {
+  // FUNZIONE CHE DETERMINA SE IL DATO INSERITO E' UN NUMERO ED E' COMPRESO FRA 2 NUMERI
+  function numeroValido(num, numMin, numMax) {
 
     if (!(isNaN(num)) && (num != "") && (num >= numMin) && (num <= numMax) ) {
       return true;
@@ -133,7 +132,7 @@ while ( i < (numElementiMax - numElementiArrayPc)) {
 
   }
 
-  // FUNZIONE CHE INSERISCE IN UN ARRAY VUOTO UN TOT NUMERO DI ELEMENTI GENERATI DALL'UTENTE
+  // FUNZIONE CHE INSERISCE IN UN ARRAY UN ELEMENTO
   function inserireElemInArray(array, elemento) {
 
     array.push(elemento);
@@ -144,27 +143,34 @@ while ( i < (numElementiMax - numElementiArrayPc)) {
   // FUNZIONE CHE VERIFICA SE IN UN ARRAY GLI ELEMNTI INSERITI SONO TUTTI DIVERSI
   function verificaElementiArray(array) {
 
-    for (var i = 0; i < array.length; i++) {
+    var trovato = false;
+    var i = 0;
+    while (i < array.length && trovato == false) {
       for (var j = 0; j < array.length && j != i ; j++) {
         if (array[i] == array[j]) {
-          return false;
+          trovato = true;
         }
       }
+      i++;
     }
-    return true;
+    return trovato;
 
   }
 
-  // FUNZIONE CHE CONFRONTA GLI ELEMENTI DI 2 ARRAY
-  function confrontoElementi(array, array1) {
 
-    for (var i = 0; i < array.length; i++) {
+  // FUNZIONE CHE CONFRONTA GLI ELEMENTI DI 2 ARRAY
+  function confrontoElementiDiDueArray(array, array1) {
+
+    var trovato = false;
+    var i = 0;
+    while ( i < array.length && trovato == false ) {
       for (var j = 0; j < array1.length; j++) {
         if (array[i] == array1[j] ) {
-          return true;
+          trovato = true;
         }
       }
+      i++;
     }
-    return false;
+    return trovato;
 
   }

@@ -45,6 +45,7 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
   var confronto = confrontoElementiDiDueArray(numeriPc, listaNumeriUtente);
   console.log("confronto", confronto);
 
+  // se il numuro utente è valido e non è ripetuto e non è uguale ad uno dei numeri del pc
   if (numUtente1 && !listaNumeriUtente1 && !confronto) {
 
     ++punti;
@@ -58,18 +59,21 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
 
       }
 
+  // se il numuro utente è valido e non è ripetuto ma è uguale ad uno dei numeri del pc
   } else if (numUtente1 && !listaNumeriUtente1) {
 
     // La partita termina quando il giocatore inserisce un numero “vietato” e deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
     alert("Mi dispace hai perso. Hai Totalizzato", punti, "punti!!!!");
     i = (numElementiMax - numElementiArrayPc);
 
+  // se il numuro utente è valido ma è ripetuto
   } else if (numUtente1){
 
     listaNumeriUtente.pop();
     alert("Attenzione il dato è stato già inserito");
     --i;
 
+  // se il numuro utente non è valido
   } else {
 
     listaNumeriUtente.pop();
@@ -95,7 +99,7 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
 
   }
 
-  // FUNZIONE CHE INSERISCE IN UN ARRAY VUOTO UN TOT NUMERO DI ELEMENTI GENERATI CASUALMENTE
+  // FUNZIONE CHE INSERISCE IN UN ARRAY UN TOT NUMERO DI ELEMENTI GENERATI CASUALMENTE
   function inserireElemCasuliInArray(array, num) {
 
     for (var i = 0; i < (num - 1); i++) {
@@ -106,7 +110,7 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
 
   }
 
-  // FUNZIONE CHE VERIFICA SE IN UN ARRAY GLI ELEMNTI INSERITI SONO TUTTI DIVERSI E SE NON LO SONO LI MODIFICA
+  // FUNZIONE CHE VERIFICA SE IN UN ARRAY GLI ELEMNTI INSERITI SONO TUTTI DIVERSI E SE NON LO SONO LI MODIFICA CON UN NUMERO CASUALE
   function verificaEmodificaElementiArray(array) {
 
     for (var i = 0; i < array.length; i++) {
@@ -140,7 +144,7 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
 
   }
 
-  // FUNZIONE CHE VERIFICA SE IN UN ARRAY GLI ELEMNTI INSERITI SONO TUTTI DIVERSI
+  // FUNZIONE CHE CONFRONTA GLI ELEMENTI DI 1 ARRAY
   function verificaElementiArray(array) {
 
     var trovato = false;

@@ -10,7 +10,7 @@ var numeriPc = [];
 
 // Il computer deve generare 16 numeri casuali tra 1 e 100.
 var numElementiArrayPc = 16;
-var numElementiMax = 100;
+var numElementiMax = 20;
 
 numeriPc = inserireElemCasuliInArray(numeriPc, numElementiArrayPc);
 console.log("array Pc", numeriPc);
@@ -55,15 +55,17 @@ while ( i < (numElementiMax - numElementiArrayPc) ) {
     if ( i == ((numElementiMax - numElementiArrayPc) - 1)) {
 
       // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-      alert("Complimenti hai Vinto!!!!!! Hai Totalizzato", punti, "punti!!!!");
+      alert("Complimenti hai Vinto!!!!!! Hai Totalizzato " + punti + " punti!!!!");
 
       }
 
   // se il numuro utente è valido e non è ripetuto ma è uguale ad uno dei numeri del pc
   } else if (numUtente1 && !listaNumeriUtente1) {
 
+    console.log("punti totalizzati:", punti);
+
     // La partita termina quando il giocatore inserisce un numero “vietato” e deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-    alert("Mi dispace hai perso. Hai Totalizzato", punti, "punti!!!!");
+    alert("Mi dispace hai perso. Hai Totalizzato " + punti + " punti!");
     i = (numElementiMax - numElementiArrayPc);
 
   // se il numuro utente è valido ma è ripetuto

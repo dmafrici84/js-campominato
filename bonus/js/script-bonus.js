@@ -13,7 +13,7 @@
 
 var livello;
 var gradoDifficolta1 = false;
-j = 0;
+var j = 0;
 while (gradoDifficolta1 == false && j < 5) {
 
   // chiedo all'utente il grado di difficoltà
@@ -23,17 +23,26 @@ while (gradoDifficolta1 == false && j < 5) {
   gradoDifficolta = gradoDifficolta.toLocaleUpperCase();
   console.log(gradoDifficolta);
 
-  if (gradoDifficolta == "PRINCIPIANTE") {
-    livello = 100;
-    gradoDifficolta1 = true;
-  } else if (gradoDifficolta == "INTERMEDIO") {
-    livello = 80;
-    gradoDifficolta1 = true;
-  } else if (gradoDifficolta == "ESPERTO") {
-    livello = 50;
-    gradoDifficolta1 = true;
-  } else {
-    alert("Attenzione, il dato inserito non è corretto.")
+  switch (gradoDifficolta) {
+
+    case "PRINCIPIANTE":
+      livello = 100;
+      gradoDifficolta1 = true;
+      break;
+
+    case "INTERMEDIO":
+      livello = 80;
+      gradoDifficolta1 = true;
+      break;
+
+    case "ESPERTO":
+      livello = 50;
+      gradoDifficolta1 = true;
+      break;
+
+    default:
+      alert("Attenzione, il dato inserito non è corretto.");
+      
   }
 
   j++;
